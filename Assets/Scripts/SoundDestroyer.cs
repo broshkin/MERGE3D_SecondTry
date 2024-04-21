@@ -13,9 +13,20 @@ public class SoundDestroyer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GetComponent<AudioSource>().isPlaying)
+        if (TryGetComponent<AudioSource>(out AudioSource audio))
         {
-            Destroy(gameObject);
+            if (!audio.isPlaying)
+            {
+                Destroy(gameObject);
+            }
         }
+        if (TryGetComponent<ParticleSystem>(out ParticleSystem particle))
+        {
+            if (!particle.isPlaying)
+            {
+                Destroy(gameObject);
+            }
+        }
+    
     }
 }

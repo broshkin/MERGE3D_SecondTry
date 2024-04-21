@@ -9,6 +9,7 @@ public class NewFruits : MonoBehaviour
     public static Vector3 pos;
     public GameObject[] fruits;
     public GameObject merge_sound;
+    public GameObject merge_particle;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class NewFruits : MonoBehaviour
         if (merge)
         {
             Instantiate(merge_sound);
+            Instantiate(merge_particle, pos / 2, transform.rotation);
             if (fruit_tag == "Cherry")
             {
                 Instantiate(fruits[0], pos / 2, fruits[0].transform.rotation);
