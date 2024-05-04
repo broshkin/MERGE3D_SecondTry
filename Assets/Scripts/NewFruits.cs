@@ -21,62 +21,64 @@ public class NewFruits : MonoBehaviour
     {
         if (merge)
         {
+            GameObject a = gameObject;
             Instantiate(merge_sound);
             Instantiate(merge_particle, pos / 2, transform.rotation);
             if (fruit_tag == "Cherry")
             {
-                Instantiate(fruits[0], pos / 2, fruits[0].transform.rotation);
+                a = Instantiate(fruits[0], pos / 2, fruits[0].transform.rotation);
                 merge = false;
                 Score.score = 10;
             }
             if (fruit_tag == "Strawberry")
             {
-                Instantiate(fruits[1], pos / 2, fruits[1].transform.rotation);
+                a = Instantiate(fruits[1], pos / 2, fruits[1].transform.rotation);
                 merge = false;
                 Score.score = 20;
             }
             if (fruit_tag == "Apple")
             {
-                Instantiate(fruits[2], pos / 2, fruits[2].transform.rotation);
+                a = Instantiate(fruits[2], pos / 2, fruits[2].transform.rotation);
                 merge = false;
                 Score.score = 40;
             }
             if (fruit_tag == "Banana")
             {
-                Instantiate(fruits[3], pos / 2, fruits[3].transform.rotation);
+                a = Instantiate(fruits[3], pos / 2, fruits[3].transform.rotation);
                 merge = false;
                 Score.score = 80;
             }
             if (fruit_tag == "Lemon")
             {
-                Instantiate(fruits[4], pos / 2, fruits[4].transform.rotation);
+                a = Instantiate(fruits[4], pos / 2, fruits[4].transform.rotation);
                 merge = false;
                 Score.score = 160;
             }
             if (fruit_tag == "Peach")
             {
-                Instantiate(fruits[5], pos / 2, fruits[5].transform.rotation);
+                a = Instantiate(fruits[5], pos / 2, fruits[5].transform.rotation);
                 merge = false;
                 Score.score = 320;
             }
             if (fruit_tag == "Pear")
             {
-                Instantiate(fruits[6], pos / 2, fruits[6].transform.rotation);
+                a = Instantiate(fruits[6], pos / 2, fruits[6].transform.rotation);
                 merge = false;
                 Score.score = 640;
             }
             if (fruit_tag == "Avocado")
             {
-                Instantiate(fruits[7], pos / 2, fruits[7].transform.rotation);
+                a = Instantiate(fruits[7], pos / 2, fruits[7].transform.rotation);
                 merge = false;
                 Score.score = 1280;
             }
             if (fruit_tag == "Peanut")
             {
-                Instantiate(fruits[8], pos / 2, fruits[8].transform.rotation);
+                a = Instantiate(fruits[8], pos / 2, fruits[8].transform.rotation);
                 merge = false;
                 Score.score = 2560;
             }
+            a.AddComponent<SizeUpper>();
             pos = new Vector3(0, 0, 0);
             Merge.count = 0;
             //if (fruit_tag == "Watermelon")
