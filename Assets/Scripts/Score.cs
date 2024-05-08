@@ -46,14 +46,14 @@ public class Score : MonoBehaviour
 
     IEnumerator StopCombo()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         FinishCombo();
     }   
 
     public void FinishCombo()
     {
         combo_active = false;
-        total_score += timely_score * multiply;
+        total_score += Mathf.Round(timely_score * multiply);
         timely_score = 0;
         multiply = 1;
 

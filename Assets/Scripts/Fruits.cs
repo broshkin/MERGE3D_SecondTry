@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fruits : MonoBehaviour
 {
     public static GameObject fruit;
-    public GameObject prefab;
+    public GameObject[] prefabs;
     public Vector3 startPos;
     public Quaternion startRot;
     public TrajectoryRenderer shit;
@@ -17,11 +18,15 @@ public class Fruits : MonoBehaviour
     public Score scoreManager;
 
     public static bool gameOver = false;
+    public GameObject nextFruit;
+    public Image nextFruitIcon;
+    public Sprite[] icons;
     // Start is called before the first frame update
     void Start()
     {
         startPos = new Vector3(-0.15f, -0.2f, 0.6f);
         startRot = Quaternion.Euler(270, 0, 0);
+        nextFruit = randomFruit();
     }
 
     // Update is called once per frame
@@ -71,7 +76,7 @@ public class Fruits : MonoBehaviour
                 Instantiate(soundThrow);
                 var rb = fruit.GetComponent<Rigidbody>();
                 rb.useGravity = true;
-                rb.AddForce(speed, ForceMode.Impulse);
+                rb.AddForce(speed, ForceMode.VelocityChange);
                 fruit.transform.parent = null;
                 StartCoroutine(NewFruit());
             }
@@ -87,11 +92,32 @@ public class Fruits : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (!gameOver)
         {
-            var a = Instantiate(prefab, gameObject.transform);
+            var a = Instantiate(nextFruit, gameObject.transform);
             a.transform.localPosition = startPos;
             a.transform.localRotation = startRot;
             a.GetComponent<Rigidbody>().useGravity = false;
+            nextFruit = randomFruit();
         }    
+    }
+
+    GameObject randomFruit()
+    {
+        var a = Random.Range(1, 101);
+        if (a <= 70)
+        {
+            nextFruitIcon.sprite = icons[0];
+            return prefabs[0];
+        }
+        else if (a <= 90)
+        {
+            nextFruitIcon.sprite = icons[1];
+            return prefabs[1];
+        }
+        else
+        {
+            nextFruitIcon.sprite = icons[2];
+            return prefabs[2];
+        }
     }
 
 
