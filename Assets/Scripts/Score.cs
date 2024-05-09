@@ -5,8 +5,8 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
-    private float total_score = 0;
-    private float timely_score = 0;
+    public static float total_score = 0;
+    public static float timely_score = 0;
     public static int score = 0;
     public TextMeshProUGUI score_text;
     public TextMeshProUGUI multiply_text;
@@ -42,6 +42,11 @@ public class Score : MonoBehaviour
             }
             score = 0;
         }
+        if (Fruits.gameOver)
+        {
+            StopAllCoroutines();
+            FinishCombo();
+        }    
     }
 
     IEnumerator StopCombo()

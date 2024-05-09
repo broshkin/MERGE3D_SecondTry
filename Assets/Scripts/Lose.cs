@@ -8,6 +8,7 @@ public class Lose : MonoBehaviour
 
     public GameObject defeatSound;
     public GameObject defeatCamera;
+    public static List<GameObject> destroyFruit = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +24,15 @@ public class Lose : MonoBehaviour
     {
         if (tags.Contains(other.tag))
         {
-            Time.timeScale /= 10;
-            Time.fixedDeltaTime /= 10;
             Instantiate(defeatSound);
             var a = Instantiate(defeatCamera);
             a.GetComponent<DefeatCameraPos>().papa = other.gameObject;
+            destroyFruit.Add(other.gameObject);
             Camera.main.gameObject.SetActive(false);
             Fruits.gameOver = true;
             Destroy(Fruits.fruit);
+            Time.timeScale /= 10;
+            Time.fixedDeltaTime /= 10;
             gameObject.SetActive(false);
         }    
     }

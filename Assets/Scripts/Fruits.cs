@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class Fruits : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Fruits : MonoBehaviour
     public TrajectoryRenderer shit;
     private Vector3 speed;
     public float z_change;
-    public float y_change;
+    public static float y_change;
     public GameObject soundThrow;
 
     public Score scoreManager;
@@ -21,12 +22,39 @@ public class Fruits : MonoBehaviour
     public GameObject nextFruit;
     public Image nextFruitIcon;
     public Sprite[] icons;
+
+    public Button left;
+    public Button right;
+    public Button pusk;
+    public Button up;
+    public Button down;
+
+    private string deviceType;
     // Start is called before the first frame update
     void Start()
     {
         startPos = new Vector3(-0.15f, -0.2f, 0.6f);
         startRot = Quaternion.Euler(270, 0, 0);
         nextFruit = randomFruit();
+
+        deviceType = YandexGame.EnvironmentData.deviceType;
+
+        if (deviceType == "desktop")
+        {
+            left.gameObject.SetActive(false);
+            right.gameObject.SetActive(false);
+            pusk.gameObject.SetActive(false);
+            up.gameObject.SetActive(false);
+            down.gameObject.SetActive(false);
+        }
+        else
+        {
+            left.gameObject.SetActive(true);
+            right.gameObject.SetActive(true);
+            pusk.gameObject.SetActive(true);
+            up.gameObject.SetActive(true);
+            down.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -59,6 +87,18 @@ public class Fruits : MonoBehaviour
             shit.lineRendererComponent.positionCount = 0;
         }
     }
+
+    public void Pusk()
+    {
+        scoreManager.FinishCombo();
+        Instantiate(soundThrow);
+        var rb = fruit.GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        rb.AddForce(speed, ForceMode.VelocityChange);
+        fruit.transform.parent = null;
+        StartCoroutine(NewFruit());
+    }
+
     public void Update()
     {
         if (gameObject.transform.childCount > 0)
@@ -98,6 +138,11 @@ public class Fruits : MonoBehaviour
             a.GetComponent<Rigidbody>().useGravity = false;
             nextFruit = randomFruit();
         }    
+    }
+    
+    public void CreateFruit()
+    {
+        StartCoroutine(NewFruit());
     }
 
     GameObject randomFruit()
