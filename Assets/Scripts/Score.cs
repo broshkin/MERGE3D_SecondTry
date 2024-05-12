@@ -1,7 +1,8 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using YG;
 
 public class Score : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Score : MonoBehaviour
     public TextMeshProUGUI timely_score_text;
     public float multiply = 1;
     public bool combo_active = false;
+
+    public WinnerChickenDinner win;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +25,24 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        score_text.text = "Ñ÷¸ò: " + total_score.ToString();
-        multiply_text.text = "Ìíîæèòåëü: " + multiply.ToString();
-        timely_score_text.text = "Î÷êè çà êîìáî: " + (Mathf.Round(timely_score * multiply)).ToString();
+        if (YandexGame.EnvironmentData.language == "ru")
+        {
+            score_text.text = "Ð¡Ñ‡Ñ‘Ñ‚: " + total_score.ToString();
+            multiply_text.text = "ÐœÐ½Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒ: " + multiply.ToString();
+            timely_score_text.text = "ÐžÑ‡ÐºÐ¸ Ð·Ð° ÐºÐ¾Ð¼Ð±Ð¾: " + (Mathf.Round(timely_score * multiply)).ToString();
+        }
+        if (YandexGame.EnvironmentData.language == "en")
+        {
+            score_text.text = "Score: " + total_score.ToString();
+            multiply_text.text = "Multiplier: " + multiply.ToString();
+            timely_score_text.text = "Score per combo: " + (Mathf.Round(timely_score * multiply)).ToString();
+        }
+        if (YandexGame.EnvironmentData.language == "tr")
+        {
+            score_text.text = "Gol: " + total_score.ToString();
+            multiply_text.text = "Ã§arpan: " + multiply.ToString();
+            timely_score_text.text = "kombo baÅŸÄ±na puan: " + (Mathf.Round(timely_score * multiply)).ToString();
+        }
         if (score != 0)
         {
             if (!combo_active)
@@ -46,7 +64,13 @@ public class Score : MonoBehaviour
         {
             StopAllCoroutines();
             FinishCombo();
-        }    
+        }
+        if (NewFruits.winnig)
+        {
+            StopAllCoroutines();
+            FinishCombo();
+            win.Win();
+        }
     }
 
     IEnumerator StopCombo()

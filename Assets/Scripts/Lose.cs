@@ -31,8 +31,7 @@ public class Lose : MonoBehaviour
             Camera.main.gameObject.SetActive(false);
             Fruits.gameOver = true;
             Destroy(Fruits.fruit);
-            Time.timeScale /= 10;
-            Time.fixedDeltaTime /= 10;
+            LoseUI.count++;
             gameObject.SetActive(false);
         }    
     }

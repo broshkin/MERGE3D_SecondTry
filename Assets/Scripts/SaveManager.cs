@@ -31,7 +31,7 @@ public class SaveManager : MonoBehaviour
 
     public static void MySave()
     {
-        YandexGame.savesData.maxScore = Score.total_score;
+        YandexGame.savesData.maxScore = Mathf.Max(Score.total_score, YandexGame.savesData.maxScore);
         YandexGame.SaveProgress();
     }
 }

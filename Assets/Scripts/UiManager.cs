@@ -14,6 +14,8 @@ public class UiManager : MonoBehaviour
     private void Start()
     {
         AdButton.onClick.AddListener(delegate { ExampleOpenRewardAd(1); });
+
+        YandexGame.FullscreenShow();
     }
 
 
@@ -34,18 +36,21 @@ public class UiManager : MonoBehaviour
     {
         if (id == 1)
         {
-            Fruits.gameOver = false;
-            GameObject.Find("1").transform.GetChild(0).gameObject.SetActive(true);
-            Destroy(GameObject.FindGameObjectWithTag("Finish"));
-            GameObject.Find("1").transform.GetChild(0).gameObject.GetComponent<Fruits>().CreateFruit();
-            foreach (var a in Lose.destroyFruit)
-            {
-                Destroy(a);
-            }    
-            loseManager.SetActive(true);
-            Time.timeScale *= 10;
-            Time.fixedDeltaTime *= 10;
+            Reward();
         }
+    }
+
+    public void Reward()
+    {
+        Fruits.gameOver = false;
+        GameObject.Find("1").transform.GetChild(0).gameObject.SetActive(true);
+        Destroy(GameObject.FindGameObjectWithTag("Finish"));
+        GameObject.Find("1").transform.GetChild(0).gameObject.GetComponent<Fruits>().CreateFruit();
+        foreach (var a in Lose.destroyFruit)
+        {
+            Destroy(a);
+        }
+        loseManager.SetActive(true);
     }
 
     void ExampleOpenRewardAd(int id)

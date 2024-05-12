@@ -10,6 +10,8 @@ public class NewFruits : MonoBehaviour
     public GameObject[] fruits;
     public GameObject merge_sound;
     public GameObject merge_particle;
+
+    public static bool winnig = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,12 +73,7 @@ public class NewFruits : MonoBehaviour
                 a = Instantiate(fruits[7], pos / 2, fruits[7].transform.rotation);
                 merge = false;
                 Score.score = 1280;
-            }
-            if (fruit_tag == "Peanut")
-            {
-                a = Instantiate(fruits[8], pos / 2, fruits[8].transform.rotation);
-                merge = false;
-                Score.score = 2560;
+                winnig = true;
             }
             a.AddComponent<SizeUpper>();
             pos = new Vector3(0, 0, 0);
